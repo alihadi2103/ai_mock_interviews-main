@@ -76,18 +76,40 @@ const AuthForm = ({ type }: { type: FormType }) => {
         );
 
         const idToken = await userCredential.user.getIdToken();
+        if(idToken)console.log('the server session token', idToken)
         if (!idToken) {
           toast.error("Sign in Failed. Please try again.");
           return;
         }
+
+        const result = await signIn({ email, idToken });
+
+        console.log(result);
+
+
+        if (result.success) {
+            toast.success("Signed in successfully!");
+
+            
+            
+              router.push("/");
+            
+            
+        }
+
+
+
+
+
+
+
 
         await signIn({
           email,
           idToken,
         });
 
-        toast.success("Signed in successfully.");
-        router.push("/");
+        
       }
     } catch (error) {
       console.log(error);

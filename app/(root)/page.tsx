@@ -12,6 +12,11 @@ import {
 
 async function Home() {
   const user = await getCurrentUser();
+  if (!user)console.log("no user");
+  else console.log(user);
+  
+
+
 
   const [userInterviews, allInterview] = await Promise.all([
     getInterviewsByUserId(user?.id!),
